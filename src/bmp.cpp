@@ -28,10 +28,19 @@ BmpImage::BmpImage(PureImage& image)
         0,
         0
     };
+
+    this->v5 = false;
 }
 
 BmpImage::BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader)
-: header(header), infoHeader(infoHeader), image(image), width(infoHeader.bmpWidth), height(infoHeader.bmpHeight) {}
+: width(infoHeader.bmpWidth), height(infoHeader.bmpHeight), header(header), infoHeader(infoHeader), image(image) {
+    this->v5 = false;
+}
+
+BmpImage::BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader infoHeader)
+: width(infoHeader.bmpWidth), height(infoHeader.bmpHeight), header(header), infoHeader(infoHeader), v5InfoHeader(infoHeader), image(image) {
+    this->v5 = true;
+}
 
 void BmpImage::writeImage(const std::string& filename) {
     std::ofstream file(filename, std::ios::binary);
@@ -42,7 +51,14 @@ void BmpImage::writeImage(const std::string& filename) {
     }
 
     file.write(reinterpret_cast<char*>(&this->header), sizeof(BmpHeader));
-    file.write(reinterpret_cast<char*>(&this->infoHeader), sizeof(BmpInfoHeader));
+    
+    if (this->v5) {
+
+        file.write(reinterpret_cast<char*>(&this->v5InfoHeader), sizeof(BmpV5InfoHeader));
+    } else {
+
+        file.write(reinterpret_cast<char*>(&this->infoHeader), sizeof(BmpInfoHeader));
+    }
 
     // bmp pixel data    
     for (int y = this->height - 1; y >= 0; y--) {
@@ -59,20 +75,6 @@ void BmpImage::writeImage(const std::string& filename) {
     file.close();
 }
 
-BmpHeader BmpImage::readHeader(const std::string& filename) {
-
-    std::ifstream file(filename, std::ios::binary);
-    if (!file) {
-        throw std::runtime_error("could not open file for reading");
-    }
-
-    BmpHeader header;
-
-    file.read(reinterpret_cast<char*>(&header), sizeof(BmpHeader));
-    file.close();
-
-    return header;
-}
 
 
 BmpImage BmpImage::readImage(const std::string& filename) {
@@ -80,15 +82,21 @@ BmpImage BmpImage::readImage(const std::string& filename) {
     BmpHeader header = BmpImage::readHeader(filename);
 
     if (header.signature != 0x4d42) {
-        throw std::runtime_error("could not open file for reading");
+        throw std::runtime_error("wrong file signature (!= BM)");
     }
 
     BmpInfoHeader infoHeader;
+    BmpV5InfoHeader v5InfoHeader;
+    bool v5;
 
     if (header.dataOffset == 54) {
         infoHeader = BmpImage::readInfoHeader(filename);
+        v5 = false;
+
     } else {
-        infoHeader = BmpImage::readV5InfoHeader(filename);
+        v5InfoHeader = BmpImage::readV5InfoHeader(filename);
+        infoHeader = v5InfoHeader;
+        v5 = true;
     }
 
     std::cout << "offset: " << header.dataOffset << std::endl;
@@ -97,7 +105,26 @@ BmpImage BmpImage::readImage(const std::string& filename) {
     }
 
     PureImage pi = BmpImage::readPixelArray(filename, header.dataOffset, infoHeader.bmpWidth, infoHeader.bmpHeight);
+    if (v5) {
+        return BmpImage(pi, header, v5InfoHeader);
+    }
+
     return BmpImage(pi, header, infoHeader);
+}
+
+BmpHeader BmpImage::readHeader(const std::string& filename) {
+
+    std::ifstream file(filename, std::ios::binary);
+    if (!file) {
+        throw std::runtime_error("could not open file for reading (readHeader)");
+    }
+
+    BmpHeader header;
+
+    file.read(reinterpret_cast<char*>(&header), sizeof(BmpHeader));
+    file.close();
+
+    return header;
 }
 
 BmpInfoHeader BmpImage::readInfoHeader(const std::string& filename) {

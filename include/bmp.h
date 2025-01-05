@@ -47,15 +47,19 @@ class BmpImage : ImageFile {
 
     const int width;
     const int height;
-
+    
     BmpHeader header;
     BmpInfoHeader infoHeader;
+    BmpV5InfoHeader v5InfoHeader;
+
+    bool v5;
 
     public:
     PureImage image;
 
     BmpImage(PureImage& image);
     BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader);
+    BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader v5infoHeader);
     // BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader infoHeader);
 
     void writeImage(const std::string& filename);
