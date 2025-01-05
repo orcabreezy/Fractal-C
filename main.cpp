@@ -56,7 +56,9 @@ void rreadImage() {
 int main() {
 
   // imageCreation();
-  rreadImage();
+  // rreadImage();
+
+  std::cout << "main file executing" << std::endl;
   
   return EXIT_SUCCESS;
 }
