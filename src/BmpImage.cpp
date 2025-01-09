@@ -66,7 +66,7 @@ void BmpImage::writeImage(const std::string& filename) {
     for (int y = this->height - 1; y >= 0; y--) {
         for (int x = 0; x < this->width; x++) {
 
-            Pixel& p = this->image[x][y];
+            Pixel& p = this->image.imageData[x][y];
             
             file.write(reinterpret_cast<char*>(&p.b), 1);
             file.write(reinterpret_cast<char*>(&p.g), 1);
