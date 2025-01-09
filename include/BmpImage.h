@@ -86,7 +86,7 @@ class BmpImage : ImageFile {
      * 
      * @param filename 
      */
-    void writeImage(const std::string& filename);
+    void writeImage(const std::string& filename) override;
 
     /**
      * @brief read an image with name <filename> and return as BmpImage Object

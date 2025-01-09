@@ -2,7 +2,7 @@
 
 #include "src/benchmark.cpp"
 #include "image.h"
-#include "bmp.h"
+#include "BmpImage.h"
 
 void benchmarking() {
 

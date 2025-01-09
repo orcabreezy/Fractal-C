@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "bmp.h"
+#include "BmpImage.h"
 #include "image.h"
 
 
