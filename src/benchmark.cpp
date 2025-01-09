@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+
 double benchmark(void (*f)(const size_t), const size_t size) {
 
     auto start = std::chrono::high_resolution_clock::now();

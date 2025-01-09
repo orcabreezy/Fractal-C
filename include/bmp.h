@@ -1,5 +1,9 @@
 #pragma once
+
+#include <cstdint>
+
 #include "image.h"
+#include "ImageFile.h"
 
 #pragma pack(push, 1)
 

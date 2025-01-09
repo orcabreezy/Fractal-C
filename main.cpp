@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "src/benchmark.cpp"
 #include "image.h"
 #include "bmp.h"

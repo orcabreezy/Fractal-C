@@ -1,6 +1,8 @@
-#include "bmp.h"
 #include <fstream>
 #include <iostream>
+
+#include "bmp.h"
+#include "image.h"
 
 
 BmpImage::BmpImage(PureImage& image)
