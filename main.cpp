@@ -44,11 +44,10 @@ void rreadImage() {
 
   BmpImage p = BmpImage::readImage("../DSCF8100.bmp");
 
-  Pixel** imageArray = p.image.getData();  
 
   for (int i = 0; i < 2000; i++) {
     for (int j = 0; j < 2000; j++) {
-      imageArray[i][j].r = 0;
+      p.image.imageData[i][j].r = 0;
     }
   }
   p.writeImage("../DSCF2.bmp");
