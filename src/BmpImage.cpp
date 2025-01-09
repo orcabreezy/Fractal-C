@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "BmpImage.h"
-#include "image.h"
+#include "PureImage.h"
 
 
 BmpImage::BmpImage(PureImage& image)
@@ -76,8 +76,6 @@ void BmpImage::writeImage(const std::string& filename) {
     
     file.close();
 }
-
-
 
 BmpImage BmpImage::readImage(const std::string& filename) {
 

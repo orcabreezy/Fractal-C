@@ -24,8 +24,8 @@ set_project_warnings(project_warnings)
 
 # Define the library that is compiled from src
 add_library(src SHARED src/benchmark.cpp
-src/image.cpp
-src/bmp.cpp
+src/PureImage.cpp
+src/BmpImage.cpp
 )
 
 target_link_libraries(src PRIVATE project_options project_warnings)

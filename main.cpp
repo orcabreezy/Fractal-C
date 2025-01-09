@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "src/benchmark.cpp"
-#include "image.h"
+#include "PureImage.h"
 #include "BmpImage.h"
 
 void benchmarking() {

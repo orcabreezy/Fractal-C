@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "image.h"
+#include "PureImage.h"
 #include "ImageFile.h"
 
 #pragma pack(push, 1)
