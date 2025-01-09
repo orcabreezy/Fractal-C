@@ -3,6 +3,10 @@
 
 #pragma pack(push, 1)
 
+/**
+ * @brief Basic BMP Header
+ * 
+ */
 struct BmpHeader {
     uint16_t signature;
     uint32_t filesize;
@@ -10,7 +14,10 @@ struct BmpHeader {
     uint32_t dataOffset;
 };
 
-
+/**
+ * @brief Basic BMP info-header
+ * 
+ */
 struct BmpInfoHeader {
     uint32_t infoHeaderSize;
     int32_t bmpWidth;
@@ -25,6 +32,10 @@ struct BmpInfoHeader {
     uint32_t importantColors;
 };
 
+/**
+ * @brief extended BMP info-header for BMP Version 5
+ * 
+ */
 struct BmpV5InfoHeader : BmpInfoHeader {
     uint32_t bV5RedMask;
     uint32_t bV5GreenMask;
@@ -43,6 +54,10 @@ struct BmpV5InfoHeader : BmpInfoHeader {
 
 #pragma pack(pop)
 
+/**
+ * @brief Bmp Representation of a file
+ * 
+ */
 class BmpImage : ImageFile {
 
     const int width;
@@ -62,14 +77,55 @@ class BmpImage : ImageFile {
     BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader v5infoHeader);
     // BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader infoHeader);
 
+    /**
+     * @brief write the current image with <filename>
+     * 
+     * @param filename 
+     */
     void writeImage(const std::string& filename);
 
+    /**
+     * @brief read an image with name <filename> and return as BmpImage Object
+     * 
+     * @param filename 
+     * @return BmpImage 
+     */
     static BmpImage readImage(const std::string& filename);
 
     private:
+    /**
+     * @brief Helper: read only the Bmp Header
+     * 
+     * @param filename 
+     * @return BmpHeader 
+     */
     static BmpHeader readHeader(const std::string& filename);
+
+    /**
+     * @brief Helper: read only the (basic) info-header; automatically starts at correct offset
+     * 
+     * @param filename 
+     * @return BmpInfoHeader 
+     */
     static BmpInfoHeader readInfoHeader(const std::string& filename);
+
+    /**
+     * @brief Helper: read only the V5 Info-Header; automatically starts at correct offset
+     * 
+     * @param filename 
+     * @return BmpV5InfoHeader 
+     */
     static BmpV5InfoHeader readV5InfoHeader(const std::string& filename);
 
+    /**
+     * @brief Helper: read the uncompressed BitMap Pixel data as 24-Bit RGB and return as
+     *          Pure Image Object
+     * 
+     * @param filename 
+     * @param offset offset in the file (determined by header)
+     * @param width  image width (determined by info-header)
+     * @param height image height (determined by info-header)
+     * @return PureImage 
+     */
     static PureImage readPixelArray(const std::string& filename, const int offset, const int width, const int height);
 };
