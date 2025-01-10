@@ -5,6 +5,9 @@
 #include "PureImage.h"
 
 
+BmpImage::BmpImage(const int width, const int height)
+    : width(width), height(height), image(PureImage(width, height)), v5(false) {}
+    
 BmpImage::BmpImage(PureImage& image)
     : width(image.width), height(image.height), image(image) {
         

@@ -76,6 +76,7 @@ class BmpImage : ImageFile {
     public:
     PureImage image;
 
+    BmpImage(const int width, const int height);
     BmpImage(PureImage& image);
     BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader);
     BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader v5infoHeader);
