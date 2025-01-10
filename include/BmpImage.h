@@ -79,7 +79,8 @@ class BmpImage : ImageFile {
     BmpImage(PureImage& image);
     BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader);
     BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader v5infoHeader);
-    // BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader infoHeader);
+
+    ~BmpImage() = default;
 
     /**
      * @brief write the current image with <filename>
