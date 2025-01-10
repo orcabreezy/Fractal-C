@@ -8,11 +8,11 @@ int add(int a, int b) {
     return a + b;
 }
 
-TEST(bmpFileTest, TestCreateLoad) {
+TEST(BmpStoreAndLoad, IntegrationFileWritingAndLoading) {
 
     size_t x = 50;
     size_t y = 80;
-    size_t width, height = 100;
+    size_t width = 100, height = 100;
     std::string filename = "bmpFileTest.bmp";
 
     PureImage im(width, height);
@@ -33,9 +33,12 @@ TEST(bmpFileTest, TestCreateLoad) {
     EXPECT_EQ(red, 255);
     EXPECT_EQ(green, 0);
     EXPECT_EQ(blue, 0);
+
+    std::string command = "rm " + filename;
+    std::system(command.c_str());
 }
 
-TEST(AdditionTest, HandlesPositiveInput) {
+TEST(AdditionTest, CategoryTestTest) {
     EXPECT_EQ(add(1, 1), 2);
     EXPECT_EQ(add(2, 4), 6); 
 }

@@ -43,6 +43,7 @@ enable_testing()
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
+include_directories(include)
 
 # define the executable
 add_executable(
@@ -51,7 +52,10 @@ add_executable(
 
 target_link_libraries(
   test01
-  GTest::gtest_main
+  PRIVATE src
+  PRIVATE GTest::gtest_main
+  PRIVATE project_options
+  PRIVATE project_warnings
 )
 include(GoogleTest)
 gtest_discover_tests(test01)
