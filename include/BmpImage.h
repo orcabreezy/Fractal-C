@@ -91,6 +91,12 @@ class BmpImage : ImageFile {
     void writeImage(const std::string& filename) override;
 
     /**
+     * @brief delete some color information according to the bayer-mosaic
+     * 
+     */
+    void bayerize();
+
+    /**
      * @brief read an image with name <filename> and return as BmpImage Object
      * 
      * @param filename 
@@ -134,4 +140,5 @@ class BmpImage : ImageFile {
      * @return PureImage 
      */
     static PureImage readPixelArray(const std::string& filename, const int offset, const int width, const int height);
+
 };

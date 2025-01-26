@@ -1,9 +1,10 @@
+#include <cstring>
 #include <fstream>
 #include <iostream>
 
 #include "BmpImage.h"
 #include "PureImage.h"
-
+#include "bayerize.h"
 
 BmpImage::BmpImage(const int width, const int height)
     : width(width), height(height), image(PureImage(width, height)), v5(false) {}
@@ -78,6 +79,10 @@ void BmpImage::writeImage(const std::string& filename) {
     }
     
     file.close();
+}
+
+void BmpImage::bayerize() {
+    this->image.standard_bayerize();
 }
 
 BmpImage BmpImage::readImage(const std::string& filename) {
@@ -174,7 +179,14 @@ PureImage BmpImage::readPixelArray(const std::string& filename, const int offset
             file.read(reinterpret_cast<char*>(&p.r), 1);
         }
     }
-
+    
     file.close();
-    return PureImage(width, height, imageData);
+    PureImage pi(width, height, imageData);
+
+    for (int i = 0; i < width; i++) {
+        delete[] imageData[i];
+    }
+    delete[] imageData;
+
+    return pi;
 }
