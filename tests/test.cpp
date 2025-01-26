@@ -17,7 +17,7 @@ TEST(BmpStoreAndLoad, IntegrationFileWritingAndLoading) {
 
     PureImage im(width, height);
 
-    im.imageData[x][y].r = 255;
+    im.imageData[x][y].r = 254;
 
     BmpImage p(im);
 
