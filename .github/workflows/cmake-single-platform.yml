@@ -37,6 +37,7 @@ jobs:
         sudo cp lib/*.a /usr/lib
     
     - name: List directory contents
+      if: false
       run: ls -R
       shell: bash
 
