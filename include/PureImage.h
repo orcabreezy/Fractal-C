@@ -30,8 +30,12 @@ struct PureImage {
     ~PureImage() = default;
 
     /**
-     * @brief unresolve the standard bayer-mosaic
-     * 
+     * @brief unresolve the standard bayer-mosaic:
+     *
+     *    g r g r g r g...
+     *    b g b g b g b...
+     *    g r g r g r g...
+     *    . . . . . . . .. 
      */
     void standard_bayerize();
     
