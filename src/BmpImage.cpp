@@ -4,7 +4,6 @@
 
 #include "BmpImage.h"
 #include "PureImage.h"
-#include "bayerize.h"
 
 BmpImage::BmpImage(const int width, const int height)
     : width(width), height(height), image(PureImage(width, height)), v5(false) {}
@@ -38,18 +37,23 @@ BmpImage::BmpImage(PureImage& image)
     this->v5 = false;
 }
 
-BmpImage::BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader)
-: width(infoHeader.bmpWidth), height(infoHeader.bmpHeight), header(header), infoHeader(infoHeader), image(image) {
+BmpImage::BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader, const std::string& name)
+: width(infoHeader.bmpWidth), height(infoHeader.bmpHeight), header(header), infoHeader(infoHeader), image(image), name(name) {
     this->v5 = false;
 }
 
-BmpImage::BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader infoHeader)
-: width(infoHeader.bmpWidth), height(infoHeader.bmpHeight), header(header), infoHeader(infoHeader), v5InfoHeader(infoHeader), image(image) {
+BmpImage::BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader infoHeader, const std::string& name)
+: width(infoHeader.bmpWidth), height(infoHeader.bmpHeight), header(header), infoHeader(infoHeader), v5InfoHeader(infoHeader), image(image), name(name) {
     this->v5 = true;
 }
 
 void BmpImage::writeImage(const std::string& filename) {
     std::ofstream file(filename, std::ios::binary);
+
+    if (this->name == filename) {
+        std::cerr << "cannot overwrite original image" << std::endl;
+        return;
+    }
 
     if (!file) {
         std::cerr << "could not open file for writing" << std::endl;
@@ -114,10 +118,10 @@ BmpImage BmpImage::readImage(const std::string& filename) {
 
     PureImage pi = BmpImage::readPixelArray(filename, header.dataOffset, infoHeader.bmpWidth, infoHeader.bmpHeight);
     if (v5) {
-        return BmpImage(pi, header, v5InfoHeader);
+        return BmpImage(pi, header, v5InfoHeader, filename);
     }
 
-    return BmpImage(pi, header, infoHeader);
+    return BmpImage(pi, header, infoHeader, filename);
 }
 
 BmpHeader BmpImage::readHeader(const std::string& filename) {

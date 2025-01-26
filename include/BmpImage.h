@@ -66,6 +66,8 @@ class BmpImage : ImageFile {
 
     const int width;
     const int height;
+
+    std::string name = "";
     
     BmpHeader header;
     BmpInfoHeader infoHeader;
@@ -78,8 +80,8 @@ class BmpImage : ImageFile {
 
     BmpImage(const int width, const int height);
     BmpImage(PureImage& image);
-    BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader);
-    BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader v5infoHeader);
+    BmpImage(PureImage& image, BmpHeader header, BmpInfoHeader infoHeader, const std::string& name);
+    BmpImage(PureImage& image, BmpHeader header, BmpV5InfoHeader v5infoHeader, const std::string& name);
 
     ~BmpImage() = default;
 
