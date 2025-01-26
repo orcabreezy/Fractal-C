@@ -27,10 +27,18 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y cmake g++ libgtest-dev ninja-build
 
+        # Verify Installation of Ninja
+        ninja --version
+
+        # Build and install Google Test
         cd /usr/src/gtest
-        sudo cmake CMakeLists.txt
+        sudo cmake -G Ninja .
         sudo ninja
         sudo cp *.a /usr/lib
+    
+    - name: List directory contents
+      run: ls -R
+      shell: bash
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
