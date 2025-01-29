@@ -89,6 +89,11 @@ void BmpImage::bayerize() {
     this->image.standard_bayerize();
 }
 
+void BmpImage::debayerize() {
+    this->image.standard_debayerize();
+}
+
+
 BmpImage BmpImage::readImage(const std::string& filename) {
 
     BmpHeader header = BmpImage::readHeader(filename);

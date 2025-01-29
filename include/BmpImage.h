@@ -99,6 +99,12 @@ class BmpImage : ImageFile {
     void bayerize();
 
     /**
+     * @brief interpolate missing color information -> resolve bayer mosaic
+     * 
+     */
+    void debayerize();
+
+    /**
      * @brief read an image with name <filename> and return as BmpImage Object
      * 
      * @param filename 
