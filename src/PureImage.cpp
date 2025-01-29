@@ -48,12 +48,13 @@ int determineColor(int i, int j) {
     int r = 0;
     int g = 1;
     int b = 2;
+    int g2 = 3; // green in a green/blue row
 
     if (i % 2 == 0) {
         // g-b row
 
         if (j % 2 == 0) {
-            return g;
+            return g2;
         }
 
         return b;
@@ -74,6 +75,7 @@ void PureImage::standard_bayerize() {
     int r = 0;
     int g = 1;
     int b = 2;   
+    int g2 = 3;
 
     for (size_t i = 0; i < newImage.width; i++) {
 
@@ -87,17 +89,93 @@ void PureImage::standard_bayerize() {
                 newImage.imageData[i][j].g = 0;
             }
 
-            else if (color == g) {
+            else if (color == g || color == g2) {
 
                 newImage.imageData[i][j].r = 0;
                 newImage.imageData[i][j].b = 0;
             }
 
-            else {
+            else if (color == b) { 
 
                 newImage.imageData[i][j].r = 0;
                 newImage.imageData[i][j].g = 0;
             }
         }
     }
+}
+
+
+void PureImage::standard_debayerize() {
+
+    const int red = 0;
+    const int green = 1;
+    const int blue = 2;
+    const int green2 = 3;
+
+    bitmap_t newImage;
+
+    newImage.reserve(this->width);
+
+    for (int i = 0; i < this->width - 1; i++) {
+
+        newImage.emplace_back();
+        newImage.at(i).reserve(this->height);
+
+        for (int j = 0; j < this->height - 1; j++) {
+            Pixel newPixel; 
+
+            int color = determineColor(i, j);
+            switch (color) {
+                
+                case red:
+                    newPixel.r = this->imageData.at(i).at(j).r;
+                    newPixel.g = (this->imageData.at(i + 1).at(j).g) / 2;
+                    newPixel.b = this->imageData.at(i + 1).at(j + 1).b;
+                    break;
+                
+                case green:
+                    newPixel.r = this->imageData.at(i + 1).at(j).r;
+                    newPixel.g = (this->imageData.at(i).at(j).g) / 2;
+                    newPixel.b = this->imageData.at(i).at(j + 1).b;
+                    break;
+
+                case blue:
+                    newPixel.r = this->imageData.at(i + 1).at(j + 1).r;
+                    newPixel.g = (this->imageData.at(i + 1).at(j).g) / 2;
+                    newPixel.b = this->imageData.at(i).at(j).b;
+                    break;
+
+                case green2:
+                    newPixel.r = this->imageData.at(i).at(j + 1).r;
+                    newPixel.g = (this->imageData.at(i).at(j).g) / 2;
+                    newPixel.b = this->imageData.at(i + 1).at(j).b;
+                    break;
+                
+                default:
+                    newPixel.r = 0; newPixel.g = 0; newPixel.b = 0;
+                    break;
+
+            }
+
+            newImage.at(i).push_back(newPixel);
+        }
+    }
+
+    newImage.emplace_back();
+    newImage.at(width - 1).reserve(this->height);
+
+    // for (int j = 0; j < height; j++) {
+    //     Pixel newPixel = {0, 0, 0};
+
+    //     newImage.at(width - 1).push_back(newPixel);
+    // }
+
+    // for (int i = 0; i < width; i++) {
+    //     Pixel newPixel = {0, 0, 0};
+
+    //     newImage.at(i).push_back(newPixel);
+    // }
+
+
+    this->imageData = newImage;
 }

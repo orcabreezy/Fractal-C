@@ -39,4 +39,11 @@ struct PureImage {
      */
     void standard_bayerize();
     
+    /**
+     * @brief resolve the bayer mosaic in an image under the assumption
+     * that the underlying image is not debayerized already
+     * 
+     */
+    void standard_debayerize();
+    
 };
