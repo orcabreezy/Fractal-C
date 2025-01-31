@@ -48,10 +48,9 @@ int determineColor(int i, int j) {
     int r = 0;
     int g = 1;
     int b = 2;
-    int g2 = 3; // green in a green/blue row
+    int g2 = 3; // green in a gb-col
 
     if (i % 2 == 0) {
-        // g-b row
 
         if (j % 2 == 0) {
             return g2;
@@ -129,25 +128,25 @@ void PureImage::standard_debayerize() {
                 
                 case red:
                     newPixel.r = this->imageData.at(i).at(j).r;
-                    newPixel.g = (this->imageData.at(i + 1).at(j).g) / 2;
+                    newPixel.g = this->imageData.at(i + 1).at(j).g;
                     newPixel.b = this->imageData.at(i + 1).at(j + 1).b;
                     break;
                 
-                case green:
+                case green2:
                     newPixel.r = this->imageData.at(i + 1).at(j).r;
-                    newPixel.g = (this->imageData.at(i).at(j).g) / 2;
+                    newPixel.g = this->imageData.at(i).at(j).g;
                     newPixel.b = this->imageData.at(i).at(j + 1).b;
                     break;
 
                 case blue:
                     newPixel.r = this->imageData.at(i + 1).at(j + 1).r;
-                    newPixel.g = (this->imageData.at(i + 1).at(j).g) / 2;
+                    newPixel.g = this->imageData.at(i + 1).at(j).g;
                     newPixel.b = this->imageData.at(i).at(j).b;
                     break;
 
-                case green2:
+                case green:
                     newPixel.r = this->imageData.at(i).at(j + 1).r;
-                    newPixel.g = (this->imageData.at(i).at(j).g) / 2;
+                    newPixel.g = this->imageData.at(i).at(j).g;
                     newPixel.b = this->imageData.at(i + 1).at(j).b;
                     break;
                 
@@ -165,7 +164,7 @@ void PureImage::standard_debayerize() {
     newImage.at(width - 1).reserve(this->height);
 
     // for (int j = 0; j < height; j++) {
-    //     Pixel newPixel = {0, 0, 0};
+    //     Pixel newPixel = {0, 0, 0};k
 
     //     newImage.at(width - 1).push_back(newPixel);
     // }
