@@ -8,11 +8,11 @@ FractalImage::FractalImage(int imageWidth, int imageHeight, Fractal* fractal)
     fractalPtr(fractal) {}
 
 
-Fractal::complex_t FractalImage::relativeToAbsolute(int coord_x, int coord_y) {
+complex_t FractalImage::relativeToAbsolute(int coord_x, int coord_y) {
 
     return this->base
-        + Fractal::complex_t(coord_x * SCALE, 0.0)
-        + Fractal::complex_t(0.0, coord_y * SCALE)
+        + complex_t(coord_x * SCALE, 0.0)
+        + complex_t(0.0, coord_y * SCALE)
     ;
 }
 
@@ -23,13 +23,15 @@ PureImage FractalImage::getBoolImage() {
 
     PureImage fractalImage(this->imageWidth, this->imageHeight);
     
+    int detail = 100;    
+
     for (int i = 0; i < imageWidth; i++) {
 
         for (int j = 0; j < imageHeight; j++) {
             
-            const Fractal::complex_t start = this->relativeToAbsolute(i, j);
+            const complex_t start = this->relativeToAbsolute(i, j);
 
-            if (fractalPtr->iterationValue(start) < 100) {
+            if (fractalPtr->iterationValue(start, detail) < detail) {
                 fractalImage.imageData[i][j] = black;
             } else {
                 fractalImage.imageData[i][j] = white;

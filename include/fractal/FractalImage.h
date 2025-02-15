@@ -21,25 +21,25 @@ struct FractalImage {
      * @brief fractal image width
      * 
      */
-    const Fractal::field_t width;
+    const field_t width;
 
     /**
      * @brief fractal
      * 
      */
-    const Fractal::field_t height;
+    const field_t height;
     
     /**
      * @brief 
      * 
      */
-    const Fractal::complex_t center;
+    const complex_t center;
 
     /**
      * @brief top Left corner of the fractal image
      * 
      */
-    const Fractal::complex_t base;
+    const complex_t base;
 
     /**
      * @brief the Image defining Fractal function
@@ -66,5 +66,5 @@ struct FractalImage {
     ~FractalImage() = default;
 
     private:
-    Fractal::complex_t relativeToAbsolute(int coord_x, int coord_y);
+    complex_t relativeToAbsolute(int coord_x, int coord_y);
 };
