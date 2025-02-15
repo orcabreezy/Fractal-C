@@ -7,4 +7,8 @@
 struct Pixel {
 
     unsigned char r, g, b;
+
+    Pixel(unsigned char r, unsigned char g, unsigned char b);
+    Pixel() = default;
+    ~Pixel() = default;
 };
