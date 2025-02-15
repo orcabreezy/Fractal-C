@@ -9,16 +9,40 @@ struct Fractal {
      * @brief The Defining Fractal Function
      * 
      */
-    const std::function<std::complex<complex_t>(
-        std::complex<complex_t>, std::complex<complex_t>
-    )> iteration;
-
-    const int ITER_CNT;
+    const std::function<std::complex<complex_t>(std::complex<complex_t>)> iteration;
 
     /**
-     * @brief Function which computes a fractal iteration
+     * @brief defines the magintued on the given Vector Space
      * 
-     * @return 
      */
-    double iterationValue(std::complex<complex_t>);
+    const std::function<complex_t(std::complex<complex_t>)> magnitude;
+    
+    /**
+    * @brief Function which computes a fractal iteration
+    * 
+    * @param start initial value
+    * @return The value after ITER_CNT iterations
+    */
+    std::complex<complex_t> iterationValue(std::complex<complex_t> start);
+    
+    /**
+     * @brief Function which computes the Magnitued
+     * 
+     * @param start initial value
+     * @return The Magnitued after ITER_CNT iteration
+     */
+    complex_t iterationMagnitude(std::complex<complex_t> start);
+
+
+    Fractal();
+    ~Fractal() = default;
+
+
+    private:
+
+    /**
+     * @brief iteration cutoff value for iterationValue
+     * 
+     */
+    const int ITER_CNT;
 };
