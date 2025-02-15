@@ -26,6 +26,9 @@ set_project_warnings(project_warnings)
 add_library(src SHARED src/benchmark.cpp
 src/PureImage.cpp
 src/BmpImage.cpp
+src/Pixel.cpp
+src/fractal/FractalImage.cpp
+src/fractal/Mandelbrot.cpp
 )
 
 target_link_libraries(src PRIVATE project_options project_warnings)
