@@ -1,12 +1,12 @@
 #include "fractal/Mandelbrot.h"
 
 
-int Mandelbrot::iterationValue(complex_t start) {
+int Mandelbrot::iterationValue(complex_t start, int detail) {
 
     complex_t accumulator(0.0, 0.0);
 
     int i = 0;
-    while (this->magnitude(accumulator) <= CUTOFF && i < MAX_ITER) {
+    while (this->magnitude(accumulator) <= CUTOFF_VALUE && i < detail) {
 
         accumulator = accumulator * accumulator + start;
 
@@ -16,7 +16,6 @@ int Mandelbrot::iterationValue(complex_t start) {
     return i;
 }
 
-Fractal::field_t Mandelbrot::magnitude(complex_t z) {
-    
-    return (z.imag() * z.imag()) + (z.real() * z.real());
+field_t Mandelbrot::magnitude(complex_t z) {
+    return euclidean_norm(z);
 }

@@ -5,23 +5,12 @@
 struct Mandelbrot : Fractal {
 
     /**
-     * @brief defines the End for the iteration
-     */
-    const field_t CUTOFF = 2.0;
-
-    /**
-     * @brief maximum iteration
-     * 
-     */
-    const int MAX_ITER = 100;
-
-    /**
      * @brief Defining the Mandelbrot iteration z_(n+1) = z_(n)^2 + c
      * 
      * @param start 
      * @return int 
      */
-    int iterationValue(complex_t start) override; 
+    int iterationValue(complex_t start, int detail) override; 
 
     /**
      * @brief standard 2-Norm for complex numbers
