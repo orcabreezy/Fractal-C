@@ -29,6 +29,8 @@ src/BmpImage.cpp
 src/Pixel.cpp
 src/fractal/FractalImage.cpp
 src/fractal/Mandelbrot.cpp
+src/fractal/Julia.cpp
+src/fractal/fractalUtils.cpp
 )
 
 target_link_libraries(src PRIVATE project_options project_warnings)
