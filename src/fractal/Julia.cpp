@@ -5,14 +5,14 @@
 Julia::Julia(complex_t juliaConst)
 : juliaConstant(juliaConst) {}
 
-int Julia::iterationValue(complex_t start, int detail) {
+int Julia::iterationValue(complex_t start, int depth) {
 
     complex_t accumulator(start);
 
     int i = 0;
-    while(this->magnitude(accumulator) < CUTOFF_VALUE && i < detail) {
+    while(this->magnitude(accumulator) < CUTOFF_VALUE && i < depth) {
 
-        accumulator = accumulator * this->juliaConstant;
+        accumulator = accumulator * accumulator + this->juliaConstant;
         ++i;
     }
 

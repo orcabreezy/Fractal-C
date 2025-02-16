@@ -12,7 +12,7 @@ struct FractalImage {
      * @brief UNIT / PIXEL
      * 
      */
-    const double SCALE = 4.0 / 1920.0;
+    const double SCALE = 3.0 / 1920.0;
 
     const int imageWidth;
     const int imageHeight;
@@ -52,7 +52,7 @@ struct FractalImage {
      * 
      * @return PureImage 
      */
-    PureImage getBoolImage();
+    PureImage getBoolImage(int depth);
 
     /**
      * @brief Image centered arround 0 + 0i

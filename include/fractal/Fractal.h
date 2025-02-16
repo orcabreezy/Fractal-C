@@ -10,7 +10,7 @@
  */
 struct Fractal {
 
-    virtual int iterationValue(complex_t start, int detail) = 0;
+    virtual int iterationValue(complex_t start, int depth) = 0;
     virtual field_t magnitude(complex_t z) = 0;
 };
 

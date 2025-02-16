@@ -10,7 +10,7 @@ struct Mandelbrot : Fractal {
      * @param start 
      * @return int 
      */
-    int iterationValue(complex_t start, int detail) override; 
+    int iterationValue(complex_t start, int depth) override; 
 
     /**
      * @brief standard 2-Norm for complex numbers
