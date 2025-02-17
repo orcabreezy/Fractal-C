@@ -17,4 +17,6 @@ struct Gradient {
      * @return Pixel output color
      */
     virtual Pixel getColor(int input) = 0;
+
+    static const int DOMAIN = 255;
 };

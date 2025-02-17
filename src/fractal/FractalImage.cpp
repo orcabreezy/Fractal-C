@@ -1,4 +1,7 @@
 #include "fractal/FractalImage.h"
+#include "fractal/fractalUtils.h"
+#include "gradient/SimpleGradient.h"
+#include "gradient/LookupGradient.h"
 
 FractalImage::FractalImage(int imageWidth, int imageHeight, Fractal* fractal)
 : imageWidth(imageWidth), imageHeight(imageHeight),
@@ -40,7 +43,7 @@ PureImage FractalImage::getBoolImage(int depth) {
     return fractalImage;
 }
 
-PureImage FractalImage::getGradualImage(int depth) {
+PureImage FractalImage::getGradualImage(int depth, Gradient* grad) {
     
     PureImage fractalImage(this->imageWidth, this->imageHeight); 
 
@@ -51,14 +54,22 @@ PureImage FractalImage::getGradualImage(int depth) {
             const complex_t start = this->relativeToAbsolute(i, j);
             int escapeValue = fractalPtr->iterationValue(start, depth);   
             int res = 255 / depth;
-            int greyscaleValue = escapeValue * res;
-            fractalImage.imageData[i][j] = Pixel(greyscaleValue, greyscaleValue, greyscaleValue);
+            Pixel color(grad->getColor(escapeValue * res));
+            fractalImage.imageData[i][j] = color;
         }
     }
 
     return fractalImage;
 }
 
+PureImage FractalImage::getGradualImage(int depth) {
+    SimpleGradient sg(Pixel(0), Pixel(255));
+    LookupGradient freshGradient(&sg);
+    return getGradualImage(depth, &freshGradient);
+}
+
 PureImage FractalImage::getGradualImage() {
-    return getGradualImage(DEFAULT_DEPTH);
+    SimpleGradient sg(Pixel(0), Pixel(255));
+    LookupGradient freshGradient(&sg);
+    return getGradualImage(DEFAULT_DEPTH, &freshGradient);
 }

@@ -27,11 +27,15 @@ add_library(src SHARED src/benchmark.cpp
 src/PureImage.cpp
 src/BmpImage.cpp
 src/Pixel.cpp
+
 src/fractal/FractalImage.cpp
 src/fractal/Mandelbrot.cpp
 src/fractal/Julia.cpp
 src/fractal/fractalUtils.cpp
 src/fractal/ModularMandelbrot.cpp
+
+src/gradient/SimpleGradient.cpp
+src/gradient/LookupGradient.cpp
 )
 
 target_link_libraries(src PRIVATE project_options project_warnings)

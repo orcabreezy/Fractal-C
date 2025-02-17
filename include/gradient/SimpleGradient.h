@@ -14,8 +14,6 @@ struct SimpleGradient : Gradient {
      */
     const Pixel end;
 
-    static const int DOMAIN = 255;
-
     Pixel getColor(int input) override;
 
     SimpleGradient() = delete;
