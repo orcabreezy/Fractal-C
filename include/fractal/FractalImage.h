@@ -5,6 +5,7 @@
 
 #include "Fractal.h"
 #include "PureImage.h"
+#include "gradient/Gradient.h"
 
 struct FractalImage {
 
@@ -53,6 +54,15 @@ struct FractalImage {
      * @return PureImage 
      */
     PureImage getBoolImage(int depth);
+
+    /**
+     * @brief Get the gradual image with a variable gradient
+     * 
+     * @param depth 
+     * @param grad 
+     * @return PureImage
+     */
+    PureImage getGradualImage(int depth, Gradient* grad);
 
     /**
      * @brief Get the Image as a one-dimensional color gradient
