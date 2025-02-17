@@ -45,5 +45,14 @@ struct PureImage {
      * 
      */
     void standard_debayerize();
+
+    /**
+     * @brief access the underlying pixels
+     * 
+     * @param i 
+     * @param j 
+     * @return Pixel& 
+     */
+    Pixel& getPixel(int i, int j);
     
 };

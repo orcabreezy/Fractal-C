@@ -178,3 +178,7 @@ void PureImage::standard_debayerize() {
 
     this->imageData = newImage;
 }
+
+Pixel& PureImage::getPixel(int i, int j) {
+    return this->imageData.at(i).at(j);
+}
