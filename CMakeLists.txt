@@ -31,6 +31,7 @@ src/fractal/FractalImage.cpp
 src/fractal/Mandelbrot.cpp
 src/fractal/Julia.cpp
 src/fractal/fractalUtils.cpp
+src/fractal/ModularMandelbrot.cpp
 )
 
 target_link_libraries(src PRIVATE project_options project_warnings)
