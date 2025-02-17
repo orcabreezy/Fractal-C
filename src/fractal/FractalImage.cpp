@@ -39,3 +39,26 @@ PureImage FractalImage::getBoolImage(int depth) {
 
     return fractalImage;
 }
+
+PureImage FractalImage::getGradualImage(int depth) {
+    
+    PureImage fractalImage(this->imageWidth, this->imageHeight); 
+
+    for (int i = 0; i < imageWidth; i++) {
+
+        for (int j = 0; j < imageHeight; j++) {
+            
+            const complex_t start = this->relativeToAbsolute(i, j);
+            int escapeValue = fractalPtr->iterationValue(start, depth);   
+            int res = 255 / depth;
+            int greyscaleValue = escapeValue * res;
+            fractalImage.imageData[i][j] = Pixel(greyscaleValue, greyscaleValue, greyscaleValue);
+        }
+    }
+
+    return fractalImage;
+}
+
+PureImage FractalImage::getGradualImage() {
+    return getGradualImage(DEFAULT_DEPTH);
+}

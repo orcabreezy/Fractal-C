@@ -55,6 +55,21 @@ struct FractalImage {
     PureImage getBoolImage(int depth);
 
     /**
+     * @brief Get the Image as a one-dimensional color gradient
+     * 
+     * @param depth the maximum depth resolution (max-iter)
+     * @return PureImage 
+     */
+    PureImage getGradualImage(int depth);
+
+    /**
+     * @brief Get the Gradual Image object with base depth of 255
+     * 
+     * @return PureImage 
+     */
+    PureImage getGradualImage();
+
+    /**
      * @brief Image centered arround 0 + 0i
      * 
      * @param widht 
