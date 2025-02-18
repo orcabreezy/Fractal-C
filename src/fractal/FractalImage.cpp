@@ -53,9 +53,11 @@ PureImage FractalImage::getGradualImage(int depth, Gradient* grad) {
             
             const complex_t start = this->relativeToAbsolute(i, j);
             int escapeValue = fractalPtr->iterationValue(start, depth);   
-            int res = 255 / depth;
-            Pixel color(grad->getColor(escapeValue * res));
-            fractalImage.imageData[i][j] = color;
+            double res = 255.0 / depth;
+            Pixel color(grad->getColor(int(res * escapeValue)));
+            fractalImage.imageData[i][j] = 
+                res * escapeValue == 255 ? Pixel() : grad->getColor(int(res * escapeValue));
+;
         }
     }
 
