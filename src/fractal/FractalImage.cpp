@@ -21,8 +21,8 @@ complex_t FractalImage::relativeToAbsolute(int coord_x, int coord_y) {
 
 PureImage FractalImage::getBoolImage(int depth) {
 
-    const Pixel black(0, 0, 0);
-    const Pixel white(255, 255, 255);
+    const Pixel black;
+    const Pixel white(255);
 
     PureImage fractalImage(this->imageWidth, this->imageHeight); 
 
@@ -32,11 +32,9 @@ PureImage FractalImage::getBoolImage(int depth) {
             
             const complex_t start = this->relativeToAbsolute(i, j);
 
-            if (fractalPtr->iterationValue(start, depth) < depth) {
-                fractalImage.imageData[i][j] = black;
-            } else {
-                fractalImage.imageData[i][j] = white;
-            }
+            if (fractalPtr->iterationValue(start, depth) < depth) fractalImage.getPixel(i, j) = black;
+            else fractalImage.getPixel(i, j) = white;
+            
         }
     }
 
@@ -55,7 +53,7 @@ PureImage FractalImage::getGradualImage(int depth, Gradient* grad) {
             int escapeValue = fractalPtr->iterationValue(start, depth);   
             double res = 255.0 / depth;
             Pixel color(grad->getColor(int(res * escapeValue)));
-            fractalImage.imageData[i][j] = 
+            fractalImage.getPixel(i, j) = 
                 res * escapeValue == 255 ? Pixel() : grad->getColor(int(res * escapeValue));
 ;
         }
