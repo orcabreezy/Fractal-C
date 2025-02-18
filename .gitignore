@@ -1,4 +1,4 @@
-*.bmp
+# *.bmp
 .build
 build
 .cache
