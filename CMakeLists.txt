@@ -36,6 +36,7 @@ src/fractal/ModularMandelbrot.cpp
 
 src/gradient/SimpleGradient.cpp
 src/gradient/LookupGradient.cpp
+src/gradient/FunctionalGradient.cpp
 )
 
 target_link_libraries(src PRIVATE project_options project_warnings)
